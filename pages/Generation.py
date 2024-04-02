@@ -47,7 +47,7 @@ layout = html.Div([
     html.Div([
       html.Div([
         
-        html.Span("Select generator: ", style={'font-weight': 'bold', 'color': '#333', 'margin-bottom': '40px'}),
+        html.Span("Select generator: ", style={'font-weight': 'bold', 'color': '#fff', 'margin-bottom': '40px'}),
         dcc.Dropdown(
           id='y_axis_dropdown',
           options=[{'label': option, 'value': option} for option in generator_names],
@@ -57,7 +57,7 @@ layout = html.Div([
       ], style={'width': '70%','margin-top': '40px','margin-left':'10px'}), 
       html.Div([
         
-        html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#333', 'margin-bottom': '40px'}),
+        html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#fff', 'margin-bottom': '40px'}),
         dcc.DatePickerRange(
           id='date-picker-range1',
           min_date_allowed=data['Date/time'].min(),
@@ -67,12 +67,12 @@ layout = html.Div([
           end_date=date(2023, 1, 7)
         ),
       ], style={'width': '70%', 'margin-top': '30px','margin-left':'10px'}),  
-    ],style={'background-color': '#fff'}),
+    ],style={'background-color': '#36587c'}),
 
     
     html.Div([
       dcc.Graph(id='the_graph1'),
-    ], style={'width': '70%'}),  
+    ], style={'width': '70%','boxShadow': '0px 0px 5px rgba(0, 0, 0, 0.2)'}),  
   ], style={'display': 'flex'}), 
 ])
 ,
@@ -82,7 +82,7 @@ html.Div(style={'width': '100%','height':'30px'}),
         
         html.Div([
             html.Div([
-                html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#333', 'margin-bottom': 40}),
+                html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#fff', 'margin-bottom': 40}),
                 dcc.DatePickerRange(
                     id="date-picker",
                     min_date_allowed=data["Date/time"].min(),
@@ -92,11 +92,12 @@ html.Div(style={'width': '100%','height':'30px'}),
                     end_date=date(2023, 1, 31)
                 ),
             ],style={'width': '70%', 'margin-top': '30px','margin-left':'10px'}),
+            html.Div(style={'width': '100%','height':'10px'}),
             html.Div([
-                dcc.Graph(id="generation-pie-chart"),
-                dcc.Graph(id="generation-bar-chart"),
-            ], style={'display': 'flex', 'width': '100%'}), 
-        ],style={'background-color': '#fff'}),
+                dcc.Graph(id="generation-pie-chart",style={'boxShadow': '0px 0px 5px rgba(0, 0, 0, 0.2)'}),
+                dcc.Graph(id="generation-bar-chart",style={'boxShadow': '0px 0px 5px rgba(0, 0, 0, 0.2)'}),
+            ]), 
+        ],style={'background-color': '#36587c'}),
     ], style={ 
         'background-color': '#36587c',  
         'font-family': 'sans-serif', 
@@ -161,8 +162,10 @@ def update_pie_chart(start_date, end_date):
     x=names, 
     y=values,  
     #title='generation by Generator ',  
-    barmode='group'  
+    barmode='group'
     )
+    fig2.update_xaxes(title_text="Generator")
+    fig2.update_yaxes(title_text="kW/hr")
     return fig, fig2
 
 

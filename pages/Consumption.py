@@ -46,7 +46,7 @@ layout = html.Div([
     html.Div([
       html.Div([
         
-        html.Span("Select receiver: ", style={'font-weight': 'bold', 'color': '#333', 'margin-bottom': '40px'}),
+        html.Span("Select receiver: ", style={'font-weight': 'bold', 'color': '#fff', 'margin-bottom': '40px'}),
         dcc.Dropdown(
           id='y_axis_dropdown',
           options=[{'label': option, 'value': option} for option in receiver_options],
@@ -56,7 +56,7 @@ layout = html.Div([
       ], style={'width': '70%','margin-top': '40px','margin-left':'10px'}), 
       html.Div([
         
-        html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#333', 'margin-bottom': '40px'}),
+        html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#fff', 'margin-bottom': '40px'}),
         dcc.DatePickerRange(
           id='date-picker-range1',
           min_date_allowed=data['Date/time'].min(),
@@ -66,12 +66,12 @@ layout = html.Div([
           end_date=date(2023, 1, 2)
         ),
       ], style={'width': '70%', 'margin-top': '30px','margin-left':'10px'}),  
-    ],style={'background-color': '#fff'}),
+    ],style={'background-color': '#36587c'}),
 
     # Row 2: Graph
     html.Div([
       dcc.Graph(id='the_graph'),
-    ], style={'width': '70%'}),  
+    ], style={'width': '70%','boxShadow': '0px 0px 5px rgba(0, 0, 0, 0.2)'}),  
   ], style={'display': 'flex'}), 
 ])
 ,
@@ -81,7 +81,7 @@ html.Div(style={'width': '100%','height':'30px'}),
         
         html.Div([
             html.Div([
-                html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#333', 'margin-bottom': 40}),
+                html.Span("Select date range: ", style={'font-weight': 'bold', 'color': '#fff', 'margin-bottom': 40}),
                 dcc.DatePickerRange(
                     id="date-picker",
                     min_date_allowed=data["Date/time"].min(),
@@ -91,11 +91,14 @@ html.Div(style={'width': '100%','height':'30px'}),
                     end_date=date(2023, 1, 31)
                 ),
             ],style={'width': '70%', 'margin-top': '30px','margin-left':'10px'}),
+            html.Div(style={'width': '100%','height':'10px'}),
             html.Div([
-                dcc.Graph(id="consumption-pie-chart"),
-                dcc.Graph(id="consumption-bar-chart"),
-            ], style={'display': 'flex', 'width': '100%'}), 
-        ],style={'background-color': '#fff'}),
+                dcc.Graph(id="consumption-pie-chart",style={'boxShadow': '0px 0px 5px rgba(0, 0, 0, 0.2)'})]),
+            html.Div(style={'width': '100%','height':'10px'}),
+            html.Div([
+                dcc.Graph(id="consumption-bar-chart",style={'boxShadow': '0px 0px 5px rgba(0, 0, 0, 0.2)'}),
+            ]), 
+        ],style={'background-color': '#36587c'}),
     ], style={ 
         'background-color': '#36587c',  
         'font-family': 'sans-serif', 
@@ -162,6 +165,8 @@ def update_pie_chart(start_date, end_date):
     #title='Consumption by Receiver ',  
     barmode='group'  
     )
+    fig2.update_xaxes(title_text="Receiver")
+    fig2.update_yaxes(title_text="kW/hr")
     return fig, fig2
 
 
